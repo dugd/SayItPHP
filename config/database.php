@@ -1,10 +1,11 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+
+use Dotenv\Dotenv;
 
 $envPath = __DIR__ . '/../';
 if (file_exists($envPath . '.env')) {
     try {
-        $dotenv = Dotenv\Dotenv::createImmutable($envPath);
+        $dotenv = Dotenv::createImmutable($envPath);
         $dotenv->load();
     } catch (Exception $e) {
         die('Помилка при завантаженні .env: ' . $e->getMessage());
