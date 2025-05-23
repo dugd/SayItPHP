@@ -10,6 +10,17 @@ class Router
             // require_once __DIR__ . '/../Controllers/HomeController.php';
             // HomeController::index();
             echo "Welcome to the Home Page!";
+        } elseif ($path === '/users') {
+            try {
+                $pdo = Database::connect();
+                $stmt = $pdo->query("SELECT * FROM users");
+                while ($row = $stmt->fetch()) {
+                    echo $row['id'] . " - " . $row['username'] . "<br>";
+                }
+            } catch (Exception $e) {
+                echo "Database connection error: " . $e->getMessage();
+                return;
+            }
         } elseif ($path === '/words') {
             // require_once __DIR__ . '/../Controllers/WordController.php';
             // WordController::index();
