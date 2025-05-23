@@ -1,5 +1,9 @@
 <?php
 
+use SayIt\Controllers\Site\HomeController;
+use SayIt\Controllers\Site\AlphabetController;
+
+
 class Router
 {
     public function dispatch($uri)
@@ -7,11 +11,7 @@ class Router
         $path = parse_url($uri, PHP_URL_PATH);
 
         if ($path === '/') {
-            // HomeController::index();
-            $view = __DIR__ . '/../Views/Site/Home.php';
-            $title = 'Home';
-
-            require __DIR__ . '/../Views/Site/layout.php';
+            HomeController::index();
         } elseif ($path === '/users') {
             try {
                 $pdo = Database::connect();
@@ -24,11 +24,7 @@ class Router
                 return;
             }
         } elseif ($path === '/alphabet') {
-            // AlphabetController::index();
-            $view = __DIR__ . '/../Views/Site/Alphabet.php';
-            $title = 'Alphabet';
-
-            require __DIR__ . '/../Views/Site/layout.php';
+            AlphabetController::index();
         } else {
             http_response_code(404);
             echo "404 Not Found";
