@@ -1,0 +1,8 @@
+{
+    "name": "dugd/say-it",
+    "type": "project",
+    "license": "",
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
