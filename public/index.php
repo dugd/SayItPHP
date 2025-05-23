@@ -9,3 +9,4 @@ require_once __DIR__ . '/../app/Core/Database.php';
 
 $router = new Router();
 $router->dispatch($_SERVER['REQUEST_URI']);
+var_dump($_SERVER);
