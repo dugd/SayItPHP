@@ -7,9 +7,11 @@ class Router
         $path = parse_url($uri, PHP_URL_PATH);
 
         if ($path === '/') {
-            // require_once __DIR__ . '/../Controllers/HomeController.php';
             // HomeController::index();
-            echo "Welcome to the Home Page!";
+            $view = __DIR__ . '/../Views/Site/Home.php';
+            $title = 'Home';
+
+            require __DIR__ . '/../Views/Site/layout.php';
         } elseif ($path === '/users') {
             try {
                 $pdo = Database::connect();
@@ -21,10 +23,12 @@ class Router
                 echo "Database connection error: " . $e->getMessage();
                 return;
             }
-        } elseif ($path === '/words') {
-            // require_once __DIR__ . '/../Controllers/WordController.php';
-            // WordController::index();
-            echo "List of Words";
+        } elseif ($path === '/alphabet') {
+            // AlphabetController::index();
+            $view = __DIR__ . '/../Views/Site/Alphabet.php';
+            $title = 'Alphabet';
+
+            require __DIR__ . '/../Views/Site/layout.php';
         } else {
             http_response_code(404);
             echo "404 Not Found";
