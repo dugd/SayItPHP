@@ -1,5 +1,6 @@
 <?php
 
+use SayIt\Core\Database;
 use SayIt\Controllers\Site\HomeController;
 use SayIt\Controllers\Site\AlphabetController;
 
