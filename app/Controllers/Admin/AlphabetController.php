@@ -7,6 +7,15 @@ use SayIt\Models\Letter;
 
 class AlphabetController
 {
+    public static function index()
+    {
+        $letters = Letter::getAll();
+        $title = 'Літери';
+        $view = __DIR__ . '/../../Views/Admin/Alphabet_Index.php';
+
+        require __DIR__ . '/../../Views/Admin/layout.php';
+    }
+
     public static function add()
     {
         $errors = [];

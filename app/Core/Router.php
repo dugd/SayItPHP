@@ -14,6 +14,8 @@ class Router
             Site\HomeController::index();
         } elseif ($path === '/alphabet') {
             Site\AlphabetController::index();
+        } elseif ($path === "/admin/alphabet") {
+            Admin\AlphabetController::index();
         } elseif ($path === "/admin/alphabet/add") {
             Admin\AlphabetController::add();
         } else {
