@@ -1,8 +1,8 @@
 <?php
 
 use SayIt\Core\Database;
-use SayIt\Controllers\Site\HomeController;
-use SayIt\Controllers\Site\AlphabetController;
+use SayIt\Controllers\Site;
+use SayIt\Controllers\Admin;
 
 
 class Router
@@ -12,7 +12,7 @@ class Router
         $path = parse_url($uri, PHP_URL_PATH);
 
         if ($path === '/') {
-            HomeController::index();
+            Site\HomeController::index();
         } elseif ($path === '/users') {
             try {
                 $pdo = Database::connect();
@@ -25,7 +25,9 @@ class Router
                 return;
             }
         } elseif ($path === '/alphabet') {
-            AlphabetController::index();
+            Site\AlphabetController::index();
+        } elseif ($path === "/admin/alphabet/add") {
+            Admin\AlphabetController::add();
         } else {
             http_response_code(404);
             echo "404 Not Found";
