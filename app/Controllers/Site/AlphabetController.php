@@ -2,13 +2,13 @@
 
 namespace SayIt\Controllers\Site;
 
+use SayIt\Core\View;
+
 class AlphabetController
 {
     public static function index()
     {
         $title = 'Alphabet';
-        $view = __DIR__ . '/../../Views/Site/Alphabet.php';
-
-        require __DIR__ . '/../../Views/Site/layout.php';
+        View::render('alphabet');
     }
 }

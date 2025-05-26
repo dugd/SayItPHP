@@ -1,5 +1,7 @@
 <?php
 
+namespace SayIt\Core;
+
 use SayIt\Controllers\Site;
 use SayIt\Controllers\Admin;
 

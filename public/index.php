@@ -6,7 +6,10 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
 // -------------------------------
-require_once __DIR__ . '/../vendor/autoload.php';
+define('BASE_PATH', dirname(__DIR__));
+
+// -------------------------------
+require_once BASE_PATH . '/vendor/autoload.php';
 
 // -------------------------------
 use Dotenv\Dotenv;
@@ -25,13 +28,13 @@ if (file_exists($dotenvFile)) {
 }
 
 // -------------------------------
-require_once $envPath . '/helpers/config.php';
+require_once BASE_PATH . '/helpers/config.php';
 
 // -------------------------------
 session_start();
 
 // -------------------------------
-require_once $envPath . '/app/Core/Router.php';
+use SayIt\Core\Router;
 
 $router = new Router();
 $router->dispatch($_SERVER['REQUEST_URI']);

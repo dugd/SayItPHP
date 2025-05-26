@@ -3,6 +3,7 @@
 namespace SayIt\Controllers\Admin;
 
 use SayIt\Models\Letter;
+use SayIt\Core\View;
 
 
 class AlphabetController
@@ -11,9 +12,7 @@ class AlphabetController
     {
         $letters = Letter::getAll();
         $title = 'Літери';
-        $view = __DIR__ . '/../../Views/Admin/Alphabet_Index.php';
-
-        require __DIR__ . '/../../Views/Admin/layout.php';
+        View::render('alphabet_index', ['letters' => $letters], 'layout', 'admin');
     }
 
     public static function add()
@@ -53,8 +52,6 @@ class AlphabetController
         }
 
         $title = 'Add letter';
-        $view = __DIR__ . '/../../Views/Admin/Alphabet_Form.php';
-
-        require __DIR__ . '/../../Views/Admin/layout.php';
+        View::render('alphabet_index', ['success' => $success, 'errors' => $errors], 'layout', 'admin');
     }
 }
