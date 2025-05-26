@@ -13,8 +13,7 @@ class Database
     public static function connect(): PDO
     {
         if (self::$instance === null) {
-            $config = require __DIR__ . '/../../config/database.php';
-            self::$instance = new PDO($config['dsn'], $config['user'], $config['password']);
+            self::$instance = new PDO(config('db.dsn'), config('db.user'), config('db.password'));
             self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         return self::$instance;
