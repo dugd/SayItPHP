@@ -49,5 +49,6 @@ $router->post('/admin/alphabet/add', [Admin\AlphabetController::class, 'add']);
 
 $router->get('/admin/alphabet/edit', [Admin\AlphabetController::class, 'edit']);
 $router->post('/admin/alphabet/edit', [Admin\AlphabetController::class, 'edit']);
+$router->post('/admin/alphabet/delete', [Admin\AlphabetController::class, 'delete']);
 
 $router->dispatch($_SERVER['REQUEST_URI']);

@@ -99,4 +99,13 @@ class AlphabetController
         $title = 'Редагування літери';
         View::render('alphabet_form', compact('title', 'success', 'errors', 'letterData'), 'layout', 'admin');
     }
+
+    public static function delete()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
+            Letter::deleteById((int)$_POST['id']);
+        }
+        header('Location: /admin/alphabet');
+        exit;
+    }
 }
