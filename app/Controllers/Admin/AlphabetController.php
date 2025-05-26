@@ -4,7 +4,7 @@ namespace SayIt\Controllers\Admin;
 
 use SayIt\Models\Letter;
 use SayIt\Core\View;
-
+use SayIt\Core\Uploader;
 
 class AlphabetController
 {
@@ -12,7 +12,7 @@ class AlphabetController
     {
         $letters = Letter::getAll();
         $title = 'Літери';
-        View::render('alphabet_index', ['letters' => $letters], 'layout', 'admin');
+        View::render('alphabet_index', compact('letters', 'title'), 'layout', 'admin');
     }
 
     public static function add()
@@ -20,38 +20,38 @@ class AlphabetController
         $errors = [];
         $success = false;
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $letter = $_POST['letter'] ?? '';
-            $description = $_POST['description'] ?? '';
-            $gestureImage = null;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $letter = trim($_POST['letter'] ?? '');
+            $description = trim($_POST['description'] ?? '');
 
-            if (empty($letter)) {
-                $errors[] = "Введіть букву.";
+            if ($letter === '') {
+                $errors[] = 'Введіть букву.';
             }
 
-            if (isset($_FILES['gesture_image']) && $_FILES['gesture_image']['error'] === UPLOAD_ERR_OK) {
-                $fileTmpPath = $_FILES['gesture_image']['tmp_name'];
-                $fileName = basename($_FILES['gesture_image']['name']);
-                $uploadDir = __DIR__ . '/../../../uploads/';
-                $uploadPath = $uploadDir . $fileName;
+            if (empty($errors)) {
+                $gestureImage = null;
 
-                if (move_uploaded_file($fileTmpPath, $uploadPath)) {
-                    $gestureImage = $fileName;
-                } else {
-                    $errors[] = "Не вдалося загрузити файл.";
+                if (!empty($_FILES['gesture_image']) && $_FILES['gesture_image']['error'] === UPLOAD_ERR_OK) {
+                    $upload = Uploader::upload($_FILES['gesture_image']);
+
+                    if (isset($upload['error'])) {
+                        $errors[] = $upload['error'];
+                    } else {
+                        $gestureImage = $upload['name'];
+                    }
                 }
 
                 if (empty($errors)) {
                     if (Letter::add($letter, $gestureImage, $description)) {
                         $success = true;
                     } else {
-                        $errors[] = "Помилка при додаванні в базу.";
+                        $errors[] = 'Помилка при додаванні до бази.';
                     }
                 }
             }
         }
 
-        $title = 'Add letter';
-        View::render('alphabet_index', ['success' => $success, 'errors' => $errors], 'layout', 'admin');
+        $title = 'Додавання літери';
+        View::render('alphabet_form', compact('title', 'success', 'errors'), 'layout', 'admin');
     }
 }
