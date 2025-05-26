@@ -51,4 +51,8 @@ $router->get('/admin/alphabet/edit', [Admin\AlphabetController::class, 'edit']);
 $router->post('/admin/alphabet/edit', [Admin\AlphabetController::class, 'edit']);
 $router->post('/admin/alphabet/delete', [Admin\AlphabetController::class, 'delete']);
 
+$router->get('/login', [Site\LoginController::class, 'show']);
+$router->post('/login', [Site\LoginController::class, 'login']);
+$router->get('/logout', [Site\LoginController::class, 'logout']);
+
 $router->dispatch($_SERVER['REQUEST_URI']);

@@ -5,11 +5,17 @@ namespace SayIt\Controllers\Admin;
 use SayIt\Models\Letter;
 use SayIt\Core\View;
 use SayIt\Core\Uploader;
+use SayIt\Core\Auth;
 
 class AlphabetController
 {
     public static function index()
     {
+        if (!Auth::check()) {
+            header('Location: /login');
+            exit;
+        }
+
         $letters = Letter::getAll();
         $title = 'Літери';
         View::render('alphabet_index', compact('letters', 'title'), 'layout', 'admin');
@@ -17,6 +23,11 @@ class AlphabetController
 
     public static function add()
     {
+        if (!Auth::check()) {
+            header('Location: /login');
+            exit;
+        }
+
         $errors = [];
         $success = false;
 
@@ -57,11 +68,16 @@ class AlphabetController
 
     public static function edit()
     {
+        if (!Auth::check()) {
+            header('Location: /login');
+            exit;
+        }
+
         $id = $_GET['id'] ?? null;
         $errors = [];
         $success = false;
 
-        if (!$id || !($letterData = Letter::GetById($id))) {
+        if (!$id || !($letterData = Letter::getById($id))) {
             header('Location: /admin/alphabet');
             exit;
         }
@@ -102,6 +118,11 @@ class AlphabetController
 
     public static function delete()
     {
+        if (!Auth::check()) {
+            header('Location: /login');
+            exit;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
             Letter::deleteById((int)$_POST['id']);
         }

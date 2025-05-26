@@ -24,11 +24,20 @@ class Letter
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function GetById($id)
+    public static function getById($id)
     {
         $pdo = Database::connect();
         $stmt = $pdo->prepare(("SELECT * FROM letters WHERE id = ?"));
         $stmt->execute([$id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ?: null;
+    }
+
+    public static function getByLetter($letter)
+    {
+        $pdo = Database::connect();
+        $stmt = $pdo->prepare(("SELECT * FROM letters WHERE letter = ?"));
+        $stmt->execute([$letter]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result ?: null;
     }

@@ -1,3 +1,7 @@
+<?php
+
+use SayIt\Core\Auth; ?>
+
 <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
     <div class="container">
         <a class="navbar-brand" href="/">SayIt</a>
@@ -8,6 +12,12 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="admin/alphabet">Абетка</a></li>
                 <li class="nav-item"><a class="nav-link" href="admin/dictionary">Словник</a></li>
+
+                <?php if (Auth::check()): ?>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="/logout">Вийти</a>
+                    </li>
+                <?php endif ?>
             </ul>
         </div>
     </div>
