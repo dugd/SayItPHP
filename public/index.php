@@ -35,6 +35,19 @@ session_start();
 
 // -------------------------------
 use SayIt\Core\Router;
+use SayIt\Controllers\Admin;
+use SayIt\Controllers\Site;
 
 $router = new Router();
+
+$router->get('/', [Site\HomeController::class, 'index']);
+$router->get('/alphabet', [Site\AlphabetController::class, 'index']);
+
+$router->get('/admin/alphabet', [Admin\AlphabetController::class, 'index']);
+$router->get('/admin/alphabet/add', [Admin\AlphabetController::class, 'add']);
+$router->post('/admin/alphabet/add', [Admin\AlphabetController::class, 'add']);
+
+$router->get('/admin/alphabet/edit', [Admin\AlphabetController::class, 'edit']);
+$router->post('/admin/alphabet/edit', [Admin\AlphabetController::class, 'edit']);
+
 $router->dispatch($_SERVER['REQUEST_URI']);
